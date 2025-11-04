@@ -4,6 +4,8 @@ import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
+import java.io.IOException;
+
 import static Tests.SeleniumTest.driver;
 import static Tests.SeleniumTest.*;
 
@@ -25,12 +27,13 @@ public class ProductsPage {
 
 
 
-    public static void VerifyFormalshoes_Title() {
-        String expectedTitleFS = "Formal S hoes";
+    public static void VerifyFormalshoes_Title() throws IOException {
+        String expectedTitleFS = "Formal Shoes";
         String actualTitleFS = driver.findElement(By.xpath(formalShoes_xpath)).getText();
         Assert.assertEquals(actualTitleFS,expectedTitleFS);
         if (expectedTitleFS.equals(actualTitleFS)) {
             test.log(Status.PASS, "Formal shoes title got verified");
+            test.log(Status.PASS,test.addScreenCaptureFromPath(capture(driver))+"Test Passed");
         }
         else{
             test.log(Status.FAIL, "Title was not verified, failed TC");
@@ -62,6 +65,8 @@ public class ProductsPage {
 
 
     public static void VerifyFirstFSname() {
+        test = extent.createTest("Verifies the First formal shoe name", "This test verifies the first formal shoe name is as expected or not");
+
         driver.findElement(By.xpath(formalDropdown_xpath)).click();
         String expctdFSname = "Classic Cheltenham";
         String actualFSname = driver.findElement(By.xpath(formalShoe_Firstshoexpath)).getText();

@@ -6,9 +6,17 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import org.testng.annotations.*;
+
+import java.io.File;
+import java.io.IOException;
+
 
 public class SeleniumTest {
     public static WebDriver driver;
@@ -28,15 +36,19 @@ public class SeleniumTest {
         HomePage.click_onlinepurchase();
     }
 
-   // @BeforeTest
-    //public void setupBrowser() {
 
-   // }
+    public static String capture(WebDriver driver) throws IOException{
+        File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        File dest = new File("scr/../ExecImages/"+System.currentTimeMillis()+".png");
+        String errflPath = dest.getAbsolutePath();
+        FileUtils.copyFile(srcFile,dest);
+        return errflPath;
+    }
 
 
 
     @Test
-    void validate_Titles()  {
+    void validate_Titles() throws IOException {
         test = extent.createTest("Verify the Titles of the shoes");
         ProductsPage.VerifyFormalshoes_Title();
         ProductsPage.VerifySportsshoe_Title();
@@ -46,8 +58,9 @@ public class SeleniumTest {
 
     @Test
     void validateFirstFS()  {
-        test = extent.createTest("Verifies the First formal shoe name", "This test verifies the first formal shoe name is as expected or not");
         ProductsPage.VerifyFirstFSname();
+        test = extent.createTest("Verifies the First formal shoe name", "This test verifies the first formal shoe name is as expected or not");
+
     }
     @Test
     void validateFirstSports(){
