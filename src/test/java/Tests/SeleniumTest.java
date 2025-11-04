@@ -11,9 +11,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import org.testng.annotations.*;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -39,7 +37,7 @@ public class SeleniumTest {
 
     public static String capture(WebDriver driver) throws IOException{
         File srcFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        File dest = new File("scr/../ExecImages/"+System.currentTimeMillis()+".png");
+        File dest = new File("target/ExecImages/"+System.currentTimeMillis()+".png");
         String errflPath = dest.getAbsolutePath();
         FileUtils.copyFile(srcFile,dest);
         return errflPath;
@@ -48,7 +46,7 @@ public class SeleniumTest {
 
 
     @Test
-    void validate_Titles() throws IOException {
+    void validate_Titles() throws Exception {
         test = extent.createTest("Verify the Titles of the shoes");
         ProductsPage.VerifyFormalshoes_Title();
         ProductsPage.VerifySportsshoe_Title();
@@ -58,20 +56,23 @@ public class SeleniumTest {
 
     @Test
     void validateFirstFS()  {
-        ProductsPage.VerifyFirstFSname();
         test = extent.createTest("Verifies the First formal shoe name", "This test verifies the first formal shoe name is as expected or not");
 
+        ProductsPage.VerifyFirstFSname();
+
     }
     @Test
-    void validateFirstSports(){
-        ProductsPage.verifyFirstSportsShoeName();
+    void validateFirstSports() throws Exception{
         test = extent.createTest("Verifies the First sports shoe name", "This test verifies the first sports shoe name is as expected or not");
+
+        ProductsPage.verifyFirstSportsShoeName();
     }
 
     @Test
-    void validateFirstSneakers(){
-        ProductsPage.verifyFirstSneakerName();
+    void validateFirstSneakers() throws Exception{
         test = extent.createTest("Verifies the First sneakers shoe name", "This test verifies the first sneakers shoe name is as expected or not");
+
+        ProductsPage.verifyFirstSneakerName();
     }
 
     @AfterSuite

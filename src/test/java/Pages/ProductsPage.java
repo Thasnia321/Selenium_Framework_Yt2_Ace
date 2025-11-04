@@ -27,7 +27,7 @@ public class ProductsPage {
 
 
 
-    public static void VerifyFormalshoes_Title() throws IOException {
+    public static void VerifyFormalshoes_Title() throws Exception {
         String expectedTitleFS = "Formal Shoes";
         String actualTitleFS = driver.findElement(By.xpath(formalShoes_xpath)).getText();
         Assert.assertEquals(actualTitleFS,expectedTitleFS);
@@ -65,14 +65,13 @@ public class ProductsPage {
 
 
     public static void VerifyFirstFSname() {
-        test = extent.createTest("Verifies the First formal shoe name", "This test verifies the first formal shoe name is as expected or not");
 
         driver.findElement(By.xpath(formalDropdown_xpath)).click();
         String expctdFSname = "Classic Cheltenham";
         String actualFSname = driver.findElement(By.xpath(formalShoe_Firstshoexpath)).getText();
         Assert.assertEquals(actualFSname.trim(),expctdFSname);
         System.out.println(actualFSname);
-        if (expctdFSname.equals(actualFSname)) {
+        if (expctdFSname.equals(actualFSname.trim())) {
             test.log(Status.PASS,"Expected shoe name Classic cheltenham matched with actual");
         }
         else{
